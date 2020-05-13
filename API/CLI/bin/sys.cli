@@ -1,0 +1,5 @@
+?register
+provider=io.moycroft.api
+service=system
+alias=true
+installer=stdsys

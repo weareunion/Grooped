@@ -1,0 +1,74 @@
+{
+    "help": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "help",
+        "installer": "stdsys"
+    },
+    "test": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "test",
+        "installer": "stdsys"
+    },
+    "install": {
+        "alias": false,
+        "provider": "io.moycroft.api",
+        "service": "install",
+        "installer": "stdsys"
+    },
+    "m": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "maintenance",
+        "installer": "stdsys"
+    },
+    "maintenance": {
+        "alias": false,
+        "provider": "io.moycroft.api",
+        "service": "maintenance",
+        "installer": "stdsys"
+    },
+    "reg": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "registration",
+        "installer": "stdsys"
+    },
+    "register": {
+        "alias": false,
+        "provider": "io.moycroft.api",
+        "service": "registration",
+        "installer": "stdsys"
+    },
+    "processor": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "processors",
+        "installer": "stdsys"
+    },
+    "processors": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "processors",
+        "installer": "stdsys"
+    },
+    "p": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "processors",
+        "installer": "stdsys"
+    },
+    "sys": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "system",
+        "installer": "stdsys"
+    },
+    "system": {
+        "alias": true,
+        "provider": "io.moycroft.api",
+        "service": "system",
+        "installer": "stdsys"
+    }
+}

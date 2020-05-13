@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4fb1d3bd-629f-4c80-bb8a-c374fbad5bcd" name="Grooped-Beta" url="http://35.237.94.39">
+        <fileTransfer host="35.237.94.39" port="22" privateKey="$USER_HOME$/.ssh/grooped_beta_instance" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

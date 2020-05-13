@@ -1,0 +1,8 @@
+{!{
+##This is a navigation button with icon
+*icon:NULL
+*onclick:NULL
+*href:#
+}!}
+<li moycroftgenerated="true" moycroftcomponent="{{COMPONENTID}}" onclick="{{onclick}}" href="{{href}}"><a class=" waves-effect waves-light btn-flat white-text ">{{title}} <i
+        class="material-icons left">{{icon}}</i></a></li>

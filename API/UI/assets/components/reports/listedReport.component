@@ -1,0 +1,67 @@
+
+{!{
+##Reports -> Listed Report
+##These are internal lists used within a <ul> item set.
+
+*icon:av_timer
+*isActive:NULL
+*mainContent:This is default main content
+*notice:NULL
+*dateFormatted:NULL
+*notesEllipse:NULL
+}!}
+
+<li class="{{isActive}} animated fadeIn"  moycroftcomponent="{{COMPONENTID}}" moycroftgenerated="true" >
+  <div class="collapsible-header"> <i class="material-icons">{{icon}}</i><strong>{{dateFormatted}} - {{hoursWorked}} hours</strong>
+  &nbsp | {{category}} - {{notesEllipse}} - <span class="truncate">&nbsp{{PRN}}</span>
+  <div class="right right-align grey-text"> &nbsp {{timeago}}</div>
+  </div>
+    <div class="collapsible-body grey lighten-2"><span>
+
+        <div class="row">
+        {{notice}}
+    <div class="col s12 m6 ">
+      <div class="card white darken-1 z-depth-0">
+        <div class="card-content ">
+          <span class="card-title">Time</span>
+            <label>Hours Worked:</label>
+            <h4> {{hoursWorked}} hours</h4>
+            <small> From {{dateFrom}} to {{dateTo}}</small>
+        </div>
+          <div class="card-action green-text text-accent-3">
+          <a href="#!" class="green-text text-accent-3" onclick="edit('time','{{ID}}')"><i class="material-icons tiny">edit</i> Edit</a>
+        </div>
+      </div>
+
+      <div class="card red darken-1 hoverable">
+
+          <div class="card-action green-text text-accent-3 text-center"  href="#!"  onclick="Moycroft.Timetables.Reports.delete.requestDeletion('{{ID}}')" >
+          <a href="#!" class="white-text" ><i class="material-icons tiny">delete</i> Request Deletion</a>
+        </div>
+      </div>
+        <small class="grey-text">Report ID: {{ID}}</small>
+    </div>
+
+      <div class="col s12 m6 ">
+      <div class="card white darken-1 z-depth-0">
+        <div class="card-content ">
+          <span class="card-title">Info</span>
+            <label>Category:</label>
+            <h5> {{category}}</h5>
+            <label>Project:</label>
+            <h5> {{project}}</h5>
+            <label>Notes:</label>
+            <h6> {{notes}}</h6>
+        </div>
+          <div class="card-action green-text text-accent-3">
+          <a href="#!" class="green-text text-accent-3 "  onclick="Moycroft.Timetables.Reports.edit.setCurrentEdit('{{ID}}'); Moycroft.Timetables.Reports.edit.setNotes('{{notes}}'); "><i class="material-icons tiny">edit</i> Edit</a>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+    </span></div>
+</li>

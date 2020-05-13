@@ -1,0 +1,8 @@
+{
+    "commands": {
+        "test": {
+            "alias": false,
+            "risk": 1
+        }
+    }
+}

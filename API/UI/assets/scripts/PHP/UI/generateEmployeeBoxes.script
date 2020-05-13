@@ -1,0 +1,17 @@
+<?
+require_once dirname(__FILE__)."/../../../../../config.php";
+\Moycroft\API\helper\IMPORT("API.internal.*");
+\Moycroft\API\helper\IMPORT("API.UI.*");
+$conn = new \Moycroft\API\internal\mysql\Connect();
+$conn->connect();
+$users = $conn->getData($conn->query("SELECT account_ID FROM accounts_users_basic_info WHERE account_rank > 0"));
+$out = "";
+
+foreach($users as $user){
+    $out .=  $UI->addComponent("account","cards/wide/employee", [
+            "accountID" => $user['account_ID']
+]);
+
+}
+echo $out;
+?>

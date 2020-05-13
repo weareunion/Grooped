@@ -1,0 +1,11 @@
+
+{
+    "dependencies": [],
+    "service": "API.grooped.persistence",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+		   "classes\/Tokens.php": "token_manager"
+		}
+	}
+}

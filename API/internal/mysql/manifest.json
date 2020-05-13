@@ -1,0 +1,19 @@
+
+{
+    "dependencies": [],
+    "service": "API.internal.mysql",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+			"auth\/auth.php": "credentials",
+		   "classes\/connect.php": "database_connection"
+		},
+ 	   "auth": {
+      	  "auth\/auth.php": "credentials"
+    		},
+	   "connect": {
+      	  "auth\/auth.php": "credentials",
+           "classes\/connect.php": "database_connection"
+    		}
+	}
+}

@@ -1,0 +1,12 @@
+[04-Jun-2019 16:44:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 6
+[04-Jun-2019 16:44:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 6
+[04-Jun-2019 16:45:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 7

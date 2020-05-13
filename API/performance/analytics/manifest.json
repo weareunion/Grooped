@@ -1,0 +1,15 @@
+
+{
+    "dependencies": [],
+    "service": "API.performance.analytics",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+			"classes\/Memory.php": "class",
+		    "classes\/CPU.php": "class",
+		    "classes\/Disk.php": "class",
+		    "classes\/MagicConstants.php": "class",
+		    "classes\/System.php": "class"
+		}
+	}
+}

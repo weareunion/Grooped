@@ -1,0 +1,11 @@
+
+{
+    "dependencies": [],
+    "service": "API.grooped.stacks",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+		   "classes\/Stack.php": "stack_object"
+		}
+	}
+}

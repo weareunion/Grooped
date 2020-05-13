@@ -1,0 +1,12 @@
+{
+    "commands": {
+        "processors": {
+            "alias": false,
+            "risk": 1
+        },
+        "processor": {
+            "alias": true,
+            "risk": 0.5
+        }
+    }
+}

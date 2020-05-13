@@ -1,0 +1,9 @@
+{!{
+##This is a general button component, defaulting to the accent color.
+*color:green accent-3
+*icon:NULL
+*onclick:NULL
+*href:#!
+}!}
+
+<a class="waves-effect waves-light btn {{color}}" onclick="{{onclick}}" href="{{href}}"><i class="material-icons left">{{icon}}</i>{{text}}</a>

@@ -1,0 +1,139 @@
+
+<script>
+    let generated_searchForUser_modal = M.Modal.getInstance(document.getElementById("generated_searchForUser"));
+    let generated_searchForUser_lastResults = null;
+    var generated_searchForUser_callback;
+
+    let generated_searchForUser_allowMultiple = false;
+    let generated_searchForUser_usersSelected = [];
+    function MOYCROFT_userSearch(callback, allowMultiple){
+        generated_searchForUser_start(callback);
+        generated_searchForUser_allowMultiple = allowMultiple;
+    }
+
+    function generated_searchForUser_conclude(id, name, closeTab=false){
+        console.log(name)
+        if (generated_searchForUser_allowMultiple) {
+            if (closeTab) {
+                generated_searchForUser_callback(generated_searchForUser_usersSelected);
+                return;
+            }
+            generated_searchForUser_usersSelected.push({
+                id: id,
+                name: name
+            });
+        }else {
+            generated_searchForUser_modal.close()
+            generated_searchForUser_callback(id, name);
+        }
+    }
+
+    function generated_searchForUser_start(callbackF){
+        generated_searchForUser_callback = callbackF;
+        generated_searchForUser_showProgress(false);
+        $("#generated_searchForUser_results").fadeTo( 100, 0 );
+        generated_searchForUser_modal.open()
+    }
+
+    function generated_searchForUser_showProgress(show) {
+        if (show){
+            $("#generated_searchForUser_progress").fadeTo( 100, 100 );
+        } else {
+            $("#generated_searchForUser_progress").fadeTo( 1000, 0 );
+        }
+    }
+
+    function generated_searchForUser_search(tosearch){
+        generated_searchForUser_showProgress(true)
+        $.post("<?echo $UI->getSwitchBoard()?>", {
+            requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken("API.accounts", "search", false);?>",
+            service: "API.accounts",
+            action: "search",
+            data: {
+                query: tosearch
+            }
+        })
+            .done(function (data) {
+                console.log(data)
+
+                if (generated_searchForUser_lastResults != data){
+                    $("#generated_searchForUser_results").html(generated_searchForUser_LI_html(data))
+                }
+                generated_searchForUser_showProgress(false);
+
+                generated_searchForUser_lastResults = data;
+
+            })
+            .fail(function () {
+
+                generated_searchForUser_showProgress(false);
+            });
+    }
+    function generated_searchForUser_selectColor(name) {
+        let options = ["red", "green", "blue", "yellow", "orange", "purple", "pink", "deep-purple" , "indigo", "light-blue", "cyan" , "teal", "light-green", "lime", "amber", "deep-orange", "brown", "blue-grey"];
+        return options[(name.length % (options.length-1))]
+    }
+    function generated_searchForUser_LI_html(JSONIn) {
+        $("#generated_searchForUser_results").fadeTo( 300, 100 );
+
+        let data = JSON.parse(JSONIn);
+        let HTout = "";
+        if (data.length === 0 && $('#generated_searchForUser_INPUT_BOX')[0].value === ""){
+            $("#generated_searchForUser_results").fadeTo( 50, 0 );
+        }
+        if (data.length === 0){
+        return "<p class=\"grey-text center animated fadeIn\"><i class=\"material-icons orange-text text-lighten-2 animated bounceIn\" style=\"font-size: 30px\"'>clear</i> <br> No Users Found</p>"
+        }
+
+        data.forEach(function (e) {
+            let exists = '<a class="waves-effect waves-light btn green accent-3 " onclick="generated_searchForUser_conclude(\''+e.ID+'\',\''+e.name+'\'); $(this).addClass(\'disabled\').html(\'<i class=\\\'material-icons right\\\'>check</i>Added\')"><i class="material-icons right">navigate_next</i>Add User</a></a>';
+            generated_searchForUser_usersSelected.forEach(function (ex) {
+                if (ex.id == e.ID) {
+                    exists = '<a class="waves-effect waves-light btn green accent-3 disabled"><i class="material-icons right">check</i>Added</a></a>'
+                }
+            })
+            HTout += '<li class="collection-item avatar animated fadeIn">\n' +
+                '                    <div class="row">\n' +
+                '                        <div class="col l10 s12">\n' +
+                '                    <i class="material-icons circle  '+generated_searchForUser_selectColor(e.name)+'">account_circle</i>\n' +
+                '                    <span class="title">'+e.name+' <small class="grey-text"></small></span>\n' +
+                '                    <p  class="grey-text">'+e.online+'<br>'+
+                '                            </div>\n' +
+                '                    <div  class="col l2 right  " style="float: right;"><a href="#!" >'+exists+'</div>\n' +
+                '                        </div>\n' +
+                '                </li>'
+            // console.log(e)
+        })
+        return HTout;
+    }
+
+    //setup before functions
+    var generated_searchForUser_typingTimer;                //timer identifier
+    var generated_searchForUser_doneTypingInterval = 100;  //time in ms, 5 second for example
+    var generated_searchForUser_$input = $('#generated_searchForUser_INPUT');
+
+    //on keyup, start the countdown
+    generated_searchForUser_$input.on('keyup', function () {
+        clearTimeout(generated_searchForUser_typingTimer);
+        generated_searchForUser_typingTimer = setTimeout(generated_searchForUser_doneTyping, generated_searchForUser_doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown
+    generated_searchForUser_$input.on('keydown', function () {
+        clearTimeout(generated_searchForUser_typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function generated_searchForUser_doneTyping () {
+        generated_searchForUser_search($('#generated_searchForUser_INPUT_BOX')[0].value)
+    }
+    $('#generated_searchForUser_formWrapper').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+
+</script>

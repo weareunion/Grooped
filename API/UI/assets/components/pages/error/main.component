@@ -1,0 +1,243 @@
+{!{
+}!}
+<style>
+    body{
+        background: #d81b60 !important;
+    }
+    body {
+        transition: all 1s;
+    }
+    .center-div {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 80%;
+        height: 40%;
+    }
+    .switch-input {
+        display: none;
+    }
+    /* label focus color */
+    .input-field input[type=text]:focus + label {
+        color: #000 !important;
+    }
+    /* label underline focus color */
+    .input-field input[type=text]:focus {
+        border-bottom: 1px solid #000 !important;
+        box-shadow: 0 1px 0 0 #000 !important;''
+    }
+    .switch-label {
+        position: relative;
+        display: inline-block;
+        min-width: 112px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: left;
+        padding: 4px 0 4px 44px;
+    }
+    .switch-label:before, .switch-label:after {
+        content: "";
+        position: absolute;
+        margin: 0;
+        outline: 0;
+        top: 50%;
+        -ms-transform: translate(0, -50%);
+        -webkit-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+    .switch-label:before {
+        left: 1px;
+        width: 34px;
+        height: 14px;
+        background-color: #9E9E9E;
+        border-radius: 8px;
+    }
+    .switch-label:after {
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background-color: #FAFAFA;
+        border-radius: 50%;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+    }
+    .switch-label .toggle--on {
+        display: none;
+        transition: all .5s;
+    }
+    .switch-label .toggle--off {
+        display: inline-block;
+    }
+    .switch-input:checked + .switch-label:before {
+        background-color: #f8bbd0 ;
+    }
+    .switch-input:checked + .switch-label:after {
+        background-color: #e91e63;
+        -ms-transform: translate(80%, -50%);
+        -webkit-transform: translate(80%, -50%);
+        transform: translate(80%, -50%);
+    }
+    .switch-input:checked + .switch-label .toggle--on {
+        display: inline-block;
+    }
+    .switch-input:checked + .switch-label .toggle--off {
+        display: none;
+    }
+    .repage{
+        background: whitesmoke !important;
+    }
+</style>
+<div class="center-div valign-wrapper" moycroftcomponentgenerated="true" moycroftcomponent="{{COMPONENTID}}">
+    <div id="generated_{{LINK}}_message">
+    <i class="material-icons animated fadeInUp white-text large" {<{return $UI -> getAnimationDelay();}>}>announcement</i>
+    <h2 class="animated fadeInUp white-text"  {<{return $UI -> getAnimationDelay("font-weight: bold;");}>} >{{title}}</h2>
+        <p class="animated fadeInUp  " {<{return $UI -> getAnimationDelay();}>} ><span class="pink-text text-lighten-4">{{message}} In the meantime, would you mind sending us a report to help us identify and fix it?</span><br><small class="pink-text text-lighten-3">Report: {{shortcode}}</small></p>
+
+    <br>
+    <a class="waves-effect waves-light btn white animated fadeInUp pink-text " onclick="generated_{{LINK}}_launchReport()" {<{return $UI->getAnimationDelay();}>} ><i class="material-icons left">bug_report</i>Report</a>
+    <a class="waves-effect waves-darken btn-flat animated fadeInUp white-text "  onclick="window.history.back()" {<{return $UI->getAnimationDelay();}>} ><i class="material-icons right">arrow_forward</i>Not Now</a>
+    </div>
+    <div id="generated_{{LINK}}_report" class="animated fadeInUp">
+        <i class="material-icons animated fadeInUp pink-text large iconREPORT" {<{return $UI -> getAnimationDelay();}>}>bug_report   <span id="generated_{{LINK}}_progressBar" class="">
+                        <div class="progress animated fadeInUp" style="background-color: whitesmoke;">
+                        <div class="indeterminate pink"></div>
+                    </div></i>
+        <h2 class="animated fadeInUp pink-text reportTitle"  {<{return $UI -> getAnimationDelay("font-weight: bold;");}>} >Report A Problem</h2>
+        <p class="reportSubtitle animated fadeInUp pink-text text-lighten2 hide">Your report will help us a great deal to find this issue.</p>
+        <div class="reportItems " >
+
+            <form class="">
+                <div class="">
+                    <div class="input-field animated fadeInUp" {<{return $UI->getAnimationDelay("border: white;width: 100%");}>} >
+                        <textarea id="generated_{{LINK}}_reporttext" class="materialize-textarea pink-text"></textarea>
+                        <label for="generated_{{LINK}}_reporttext" class="pink-text text-lighten-2">Please describe what you were doing when this error occurred.</label>
+                    </div>
+                </div>
+                <input type="checkbox" {<{return $UI -> getAnimationDelay();}>} checked id="generated_{{LINK}}_id-name--1" name="set-name" class="switch-input animated fadeInUp">
+                <label for="generated_{{LINK}}_id-name--1" {<{return $UI -> getAnimationDelay();}>} class="switch-label animated fadeInUp"><span class="toggle--on">Send</span><span class="toggle--off">Don't send</span> information about my browser and account <span class="toggle--off"> (Will greatly reduce our ability to fix the problem)</span></label>
+            </form>
+        </div>
+
+        <a class="waves-effect waves-red btn pink darken-1 animated fadeInUp white-text sendReportButton" onclick="generated_{{LINK}}_sendReport(this)" {<{return $UI->getAnimationDelay();}>} ><i class="material-icons left">bug_report</i>Send Report</a>
+        <a class="waves-effect waves-light btn-flat animated fadeInUp pink-text text-darken-1 " onclick="window.history.back()" id="generated_{{LINK}}_nevermind" {<{return $UI->getAnimationDelay();}>} ><i class="material-icons right">arrow_forward</i>Nevermind</a>
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+<script  moycroftcomponentgenerated="true" mctype="script" moycroftcomponent="{{COMPONENTID}}">
+
+    $(document).ready(function () {
+        $("#generated_{{LINK}}_report").hide()
+        $("#generated_{{LINK}}_progressBar").hide()
+    })
+    let clientReport;
+    function generated_{{LINK}}_launchReport(){
+
+
+    $("#generated_{{LINK}}_message").addClass("animated").addClass("fadeOutUp");
+        $('body').addClass("repage")
+    setTimeout(function () {
+        $("#generated_{{LINK}}_message").hide()
+        $("#generated_{{LINK}}_report").show()
+        $("#generated_{{LINK}}_report")
+    },400)
+    }
+    function generated_{{LINK}}_sendReport(button){
+        $("#generated_{{LINK}}_progressBar").fadeIn(500)
+        $("#generated_{{LINK}}_nevermind").addClass("disabled")
+        $(button).addClass("disabled");
+        if($("#generated_{{LINK}}_id-name--1").is(":checked")){
+            $(button).html("<i class=\"material-icons left animated rotateIn\">autorenew</i>Gathering Information")
+            generated_{{LINK}}_gatherData(button,true)
+        }else{
+            generated_{{LINK}}_gatherData(button,false)
+
+        }
+    }
+    function generated_{{LINK}}_submitReport(button) {
+        $(button).html("<i class=\"material-icons left animated pulse\">send</i>Sending Report")
+        $.post("{<{return $UI->getSwitchBoard();}>}", {
+            requestToken: "{<{ return \Moycroft\API\security\antispam\requests\requestToken("API.internal.reporting", "amendUserData", true, 10);}>}",
+            service: "API.internal.reporting",
+            action: "amendUserData",
+            data: {
+                reportID: "{{errorcode}}",
+                report: clientReport
+            }
+        }).done(function (data) {
+
+            $(".reportItems").fadeOut(400);
+
+            $(".sendReportButton").fadeOut(400);
+            setTimeout(function () {
+                $(".reportTitle").html("Thank you!").removeClass("disabled")
+                $(".iconREPORT").html("favorite")
+                $(".reportSubtitle").removeClass("hide")
+                $("#generated_{{LINK}}_nevermind").html('<i class="material-icons right">arrow_forward</i>Continue')
+                $("#generated_{{LINK}}_nevermind").removeClass("disabled")
+                M.toast({html: ' <i class="material-icons">check</i> &nbsp <b>Report has been sent!</b> &nbsp If you want to persue this report further, contact support with the error code: {{shortcode}}', displayLength: 100000})
+
+            },350)
+            })
+    }
+    function generated_{{LINK}}_gatherData(button, allowData) {
+        if (allowData) {
+            var getCookies = function () {
+                var pairs = document.cookie.split(";");
+                var cookies = {};
+                for (var i = 0; i < pairs.length; i++) {
+                    var pair = pairs[i].split("=");
+                    cookies[(pair[0] + '').trim()] = unescape(pair[1]);
+                }
+                return cookies;
+            }
+            var getLS = function () {
+
+                var values = [],
+                    keys = Object.keys(localStorage),
+                    i = keys.length;
+
+                while (i--) {
+                    values.push(localStorage.getItem(keys[i]));
+                }
+
+                return values;
+            }
+            var _navigator = {};
+            for (var i in navigator) _navigator[i] = navigator[i];
+
+            delete _navigator.plugins;
+            delete _navigator.mimeTypes;
+        }
+        let compiledReport = null;
+        let userMessage = ($("#generated_{{LINK}}_reporttext")[0].value == "") ? "No Message" : $("#generated_{{LINK}}_reporttext")[0].value;
+        if (allowData) {
+             compiledReport = {
+                navigator: _navigator,
+                cookies: getCookies(),
+                LocalStorage: getLS(),
+                clientMessage: userMessage
+            };
+        }else {
+             compiledReport = {
+                navigator: "optedOut",
+                cookies: "optedOut",
+                LocalStorage: "optedOut",
+                clientMessage: userMessage
+            }
+        }
+
+
+        clientReport = (JSON.stringify(compiledReport));
+        setTimeout(function (){generated_{{LINK}}_submitReport(button)}, 692);
+    }
+
+    // setTimeout()
+</script>

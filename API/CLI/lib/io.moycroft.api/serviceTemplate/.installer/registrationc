@@ -1,0 +1,12 @@
+{
+    "commands": {
+        "command": {
+            "alias": false,
+            "risk": 1
+        },
+        "cmd": {
+            "alias": true,
+            "risk": 0.5
+        }
+    }
+}

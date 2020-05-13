@@ -1,0 +1,12 @@
+
+{
+    "dependencies": [],
+    "service": "API.security.auth.gatekeeper",
+    "required_imports": false,
+	"imports": {
+   	   "_required": [],
+ 	   "main": {
+      	  "classes\/gatekeeper.php": "class"
+    		}
+	}
+}

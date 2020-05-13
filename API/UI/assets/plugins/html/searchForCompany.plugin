@@ -1,0 +1,35 @@
+   <div id="generated_searchForCompany" class="modal modal-fixed-footer white black-text text-darken-2" style="overflow-y: hidden !important;">
+        <div class="modal-content ">
+            <i class="right grey-text small material-icons">search</i></a>
+            <br>
+            <h4 class="animated fadeInUp text-darken-1" style="font-weight: bold;animation-delay: 0s">Search For a Company</h4>
+            <b></b>
+            <p class="grey-text animated fadeInUp" style="animation-delay: 0.2s">You can search almost any detail about the company such as name, role, state and other such information.</p>
+            <nav>
+                <div class="nav-wrapper z-depth-0">
+                    <form id="generated_searchForCompany_formWrapper">
+                        <div id="generated_searchForCompany_INPUT" class="input-field grey lighten-3 z-depth-0">
+                            <input id="generated_searchForCompany_INPUT_BOX" type="search" required>
+                            <label class="label-icon" for="search"><i class="grey-text material-icons">domain</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <div class="progress transparent" id="generated_searchForCompany_progress">
+                <div class="indeterminate green accent-3"></div>
+            </div>
+            <span >
+                <ul class="collection" id="generated_searchForCompany_results">
+
+
+            </ul>
+            </span>
+        </div>
+        <div class="modal-footer grey lighten-4 animated fadeInUp" style="animation-delay: 0.3s">
+            <a class="waves-effect modal-close waves-lighten left grey-text text-darken-2 btn-flat animated fadeIn"
+               style="animation-delay: 0.5s">Cancel</a>
+
+
+        </div>
+    </div>

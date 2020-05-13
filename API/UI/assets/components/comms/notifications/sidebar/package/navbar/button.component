@@ -1,0 +1,6 @@
+
+
+    <li><a class="animated fadeIn" onclick="M.Sidenav.getInstance(document.getElementById('RESERVED.notification.slideout')).open();Moycroft.Notifications.getNotifications();" id="RESERVED.notification.button"> {<{ \Moycroft\API\helper\IMPORT("API.comms.notifications.*"); $newNotifCount = \Moycroft\API\comms\notifications\Postal\Postal::getNewCount(); return ($newNotifCount == 0 ?  "<i class=\"material-icons left\">notifications_none</i>" :  "<i class=\"material-icons left\">notifications_active</i> $newNotifCount");}>}</a></li>
+
+
+

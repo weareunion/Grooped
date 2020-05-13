@@ -1,0 +1,24 @@
+
+{!{
+##Core -> notice
+##These are notices used for spans
+
+*title:NULL
+*color:blue
+*textColor:white-text
+*notice:NULL
+*clear:$(this).fadeOut(500)
+*action:NULL
+*icon:announcement
+*animated:animated
+*shadow:3
+}!}
+<div class="col s12 m12 {{animated}} fadeInUp" onclick="{{clear}}" moycroftcomponent="{{COMPONENTID}}" moycroftgenerated="true">
+    <div onclick="{{action}}" class="card {{color}} darken-1 z-depth-{{shadow}} {{textColor}}">
+        <div class="card-content valign-wrapper">
+            <i class="small material-icons {{animated}} bounceIn" style="animation-delay: 1s">{{icon}}</i><p class="{{animated}} fadeInUp" style="animation-delay: 0.3s"><b>&nbsp &nbsp{{title}} </b>{{message}}</p>
+            <br>
+        </div>
+
+    </div>
+</div>

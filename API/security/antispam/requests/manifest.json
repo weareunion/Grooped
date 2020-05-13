@@ -1,0 +1,11 @@
+{
+    "dependencies": [],
+    "service": "API.security.antispam.requests",
+    "required_imports": false,
+	"imports": {
+ 	   "_required": [],
+ 	   "requestToken": {
+  	      "functions\/antispam.php": "function"
+  	  }
+	}
+}

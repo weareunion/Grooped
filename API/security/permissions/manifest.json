@@ -1,0 +1,12 @@
+
+{
+    "dependencies": [],
+    "service": "API.security.permissions",
+    "required_imports": false,
+	"imports": {
+   	   "_required": [],
+ 	   "main": {
+      	  "classes\/Permissions.php": "class"
+    		}
+	}
+}

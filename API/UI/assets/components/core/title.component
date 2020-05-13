@@ -1,0 +1,10 @@
+{!{
+*subtitle:NULL
+*strength:h3
+*color:white
+*animation:fadeInDown
+}!}
+<span moycroftgenerated="true" moycroftcomponent="{{COMPONENTID}}" drawLink="{{LINK}}" style="">
+<{{strength}} class="{{color}}-text animated {{animation}}"  {<{ return $UI -> getAnimationDelay("font-weight: bold;padding-top: 0px; margin-top: 0px;");}>} >{{title}}</{{strength}}>
+<p  class="animated fadeInDown grey-text text-lighten-2"  {<{ return $UI -> getAnimationDelay();}>} >{{subtitle}}</p>
+</span>

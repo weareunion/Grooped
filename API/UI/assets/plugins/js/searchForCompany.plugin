@@ -1,0 +1,118 @@
+
+<script>
+    let generated_searchForCompany_modal = M.Modal.getInstance(document.getElementById("generated_searchForCompany"));
+    let generated_searchForCompany_lastResults = null;
+    var generated_searchForCompany_callback;
+
+
+    function MOYCROFT_companySearch(callback){
+        generated_searchForCompany_start(callback);
+    }
+
+    function generated_searchForCompany_conclude(id){
+        generated_searchForCompany_modal.close()
+        generated_searchForCompany_callback(id);
+    }
+
+    function generated_searchForCompany_start(callbackF){
+        generated_searchForCompany_callback = callbackF;
+        generated_searchForCompany_showProgress(false);
+        $("#generated_searchForCompany_results").fadeTo( 100, 0 );
+        generated_searchForCompany_modal.open()
+    }
+
+    function generated_searchForCompany_showProgress(show) {
+        if (show){
+            $("#generated_searchForCompany_progress").fadeTo( 100, 100 );
+        } else {
+            $("#generated_searchForCompany_progress").fadeTo( 1000, 0 );
+        }
+    }
+
+    function generated_searchForCompany_search(tosearch){
+        generated_searchForCompany_showProgress(true)
+        $.post("<?echo $UI->getSwitchBoard()?>", {
+            requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken("API.accounts.Company", "search", false);?>",
+            service: "API.accounts.Company",
+            action: "search",
+            data: {
+                query: tosearch
+            }
+        })
+            .done(function (data) {
+
+                if (generated_searchForCompany_lastResults != data){
+                    $("#generated_searchForCompany_results").html(generated_searchForCompany_LI_html(data))
+                }
+                generated_searchForCompany_showProgress(false);
+
+                generated_searchForCompany_lastResults = data;
+
+            })
+            .fail(function () {
+
+                generated_searchForCompany_showProgress(false);
+            });
+    }
+    function generated_searchForCompany_LI_html(JSONIn) {
+        $("#generated_searchForCompany_results").fadeTo( 300, 100 );
+
+        let data = JSON.parse(JSONIn);
+        let HTout = "";
+        if (data.length === 0 && $('#generated_searchForCompany_INPUT_BOX')[0].value === ""){
+            $("#generated_searchForCompany_results").fadeTo( 50, 0 );
+        }
+        if (data.length === 0){
+        return "<p class=\"grey-text center animated fadeIn\"><i class=\"material-icons orange-text text-lighten-2 animated bounceIn\" style=\"font-size: 30px\"'>clear</i> <br> No Companies Found</p>"
+        }
+        data.forEach(function (e) {
+            HTout += '<li class="collection-item avatar animated fadeIn">\n' +
+                '                    <div class="row">\n' +
+                '                        <div class="col l10 s12">\n' +
+                '                    <i class="material-icons circle '+generated_searchForCompany_selectColor(e.name)+'">work</i>\n' +
+                '                    <span class="title">'+e.name+' </span>\n' +
+                '                    <p class="grey-text"> '+e.address + ', ' + e.state +'\n' +
+                '                    </p>\n' +
+                '                            </div>\n' +
+                '                    <div onclick="generated_searchForCompany_conclude(\''+e.ID+'\')" class="col l2 right  " style="float: right;"><a href="#!" onclick="generated_searchForCompany_conclude(\''+e.ID+'\')" ><a class="waves-effect waves-light btn green accent-3 "><i class="material-icons right">navigate_next</i>select</a></a></div>\n' +
+                '                        </div>\n' +
+                '                </li>'
+            // console.log(e)
+        })
+        return HTout;
+    }
+    function generated_searchForCompany_selectColor(name) {
+        let options = ["red", "green", "blue", "yellow", "orange", "purple", "pink", "deep-purple" , "indigo", "light-blue", "cyan" , "teal", "light-green", "lime", "amber", "deep-orange", "brown", "blue-grey"];
+        return options[(name.length % (options.length-1))]
+    }
+
+    //setup before functions
+    var generated_searchForCompany_typingTimer;                //timer identifier
+    var generated_searchForCompany_doneTypingInterval = 100;  //time in ms, 5 second for example
+    var generated_searchForCompany_$input = $('#generated_searchForCompany_INPUT');
+
+    //on keyup, start the countdown
+    generated_searchForCompany_$input.on('keyup', function () {
+        clearTimeout(generated_searchForCompany_typingTimer);
+        generated_searchForCompany_typingTimer = setTimeout(generated_searchForCompany_doneTyping, generated_searchForCompany_doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown
+    generated_searchForCompany_$input.on('keydown', function () {
+        clearTimeout(generated_searchForCompany_typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function generated_searchForCompany_doneTyping () {
+        generated_searchForCompany_search($('#generated_searchForCompany_INPUT_BOX')[0].value)
+    }
+    $('#generated_searchForCompany_formWrapper').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+
+</script>

@@ -1,0 +1,81 @@
+{!{
+##The following statements are comments
+##These are known as defaults
+##If an item is not required, you can type NULL and it will ignore it. Otherwise, the value after the : will be implemented. Spaces will be included.
+##Any items that are in the component that do not have a default or NULL set will halt the component from being created.
+
+*icon:NULL
+*accountID : null
+}!}
+{<{$account =  new \Moycroft\API\accounts\Account\Account(); $anl =  new \Moycroft\API\employee\timetables\Analysis\Analysis();$act = new \Moycroft\API\accounts\Activity\Activity();}>}
+<div class="col s12 m12 " moycroftComponentType="personalCard" pc="{{accountID}}" {<{return $UI -> getAnimationDelay();}>}>
+
+    <div class="card-panel white" >
+        <div class="row ">
+            <img src="{<{ return $UI->getAvatar('{{accountID}}', "small");}>}" style="margin: auto; width: 50%; max-width: 100px;" alt="" class="col s12 m3 circle valign-wrapper">
+            <div class="" style="height: inherit">
+                <div class=" col s12 m9 " >
+                    <br>
+                    <span >
+                                    <h5 class="black-text animated " style="font-weight: bold;padding-top: 0px; margin-top: 0px;padding-bottom: 0px; margin-bottom: 0px; animation-delay: 0.2s">{<{ return $account->getFirstName('{{accountID}}');}>} {<{ return $account->getLastName('{{accountID}}');}>}</h5>
+                        <small class="grey-text " style="; animation-delay: 0.3s;padding-top: 0px; margin-top: 0px;padding-bottom: 0px; margin-bottom: 0px;"> {<{ switch($account->getRank('{{accountID}}')){case 0: return "Client"; break;case 1: return "Employee"; break;case 2: return "Manager"; break;case 3: return "Developer"; break;case 4: return "Owner"; break;} }>} - <a href="#!" onclick="changeRank('{{accountID}}')"> {<{ return ($account->getRank('{{accountID}}') == 4) ? "<span class='red-text text-lighten-2'>Resign</span>" : "Change"; }>} </a></small>
+                                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 0px">
+            <div class="col s12 m6">
+                <div class="card-panel grey lighten-3 z-depth-0" >
+                    <div class="row" style="margin-bottom: 3px; margin-top: 3px">
+                        <div class="col s3 m2"> <i class=" material-icons   ">phone</i></div>
+                        <div class="col s9 m10">
+                            <label>Phone - <a>Request Change</a> - <a>Call</a></label>
+                            <p style="margin-top: 0px; margin-bottom: 0px" >{<{ return preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $account->getPhoneNumber('{{accountID}}')) ;}>}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel grey lighten-3 z-depth-0" >
+                    <div class="row" style="margin-bottom: 3px; margin-top: 3px">
+                        <div class="col s3 m2"> <i class=" material-icons   ">mail</i></div>
+                        <div class="col s9 m10">
+                            <label>Email - <a>Contact</a></label>
+                            <p style="margin-top: 0px; margin-bottom: 0px" class="">{<{ return urldecode($account->getEmail('{{accountID}}'));}>}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel grey lighten-3 z-depth-0" style="margin-bottom: 0px;">
+                    <div class="row" style="margin-bottom: 3px; margin-top: 3px">
+                        <div class="col s3 m2"> <i class=" material-icons   ">explore</i></div>
+                        <div class="col s9 m10">
+                            <label>Status {<{return $act->getActivity('{{accountID}}') == 1 ? ' - <a onclick=" allowLogin(\'{{accountID}}\') "> Allow</a>' : ''; }>}</label>
+                            <p style="margin-top: 0px; margin-bottom: 0px" >{<{return $act->getStatus('{{accountID}}', true);}>}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel grey lighten-3 z-depth-0" style="margin-bottom: 0px;">
+                    <div class="row" style="margin-bottom: 3px; margin-top: 3px">
+                        <div class="col s3 m2"> <i class=" material-icons   ">attach_money</i></div>
+                        <div class="col s9 m10">
+                            <label>Rate - <a href="#!" onclick="changeRate('{{accountID}}', {<{ return ($anl->getRate('{{accountID}}', false)) ? $anl->getRate('{{accountID}}', false) : 'null'; }>} , {<{ return ($anl->getRate('{{accountID}}', true)) ? $anl->getRate('{{accountID}}', true) : 'null'; }>} )">Change</a>  - <a href="../../../../timesheets/view?viewas=true&ID={{accountID}}">View Timesheets</a></label>
+                            <p style="margin-top: 0px; margin-bottom: 0px" data-position="bottom" data-tooltip="I am a tooltip" class="green-text tooltipped"> {<{ return ($anl->getRate('{{accountID}}', false)) ? "$".number_format($anl->getRate('{{accountID}}', false), 2, '.', ',') : 'Not Set'; }>} <span class="grey-text"> - {<{ return ($anl->getRate('{{accountID}}', true)) ? "$".number_format($anl->getRate('{{accountID}}', true), 2, '.', ',') : 'Not Set'; }>}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function(){
+        $('.tooltipped').tooltip();
+    });
+
+</script>

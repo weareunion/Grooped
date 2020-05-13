@@ -1,0 +1,1 @@
+const DOMContainer = document.querySelector('#CONTAINER');

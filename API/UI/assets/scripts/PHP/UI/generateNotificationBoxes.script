@@ -1,0 +1,33 @@
+<?
+require_once dirname(__FILE__)."/../../../../../config.php";
+\Moycroft\API\helper\IMPORT("API.internal.*");
+\Moycroft\API\helper\IMPORT("API.UI.*");
+\Moycroft\API\helper\IMPORT("API.util.*");
+$conn = new \Moycroft\API\internal\mysql\Connect();
+$conn->connect();
+$acc = $_SESSION['user_account'];
+ $howMany = $_SESSION['API.UI.PASSTHRU.NOTIFICATIONS.AMOUNT'];
+$notifications = $conn->getData($conn->query("SELECT * FROM `comms_notifications_global_storage_general` WHERE `recipient_id` = '$acc' ORDER BY `TABLE_SEQUENCE`DESC LIMIT $howMany"));
+$out = "";
+
+
+foreach($notifications as $notification){
+    $age = $notification["unread"] == 1 ? "new" : "old";
+    $icon = "notifications";
+    if($notification["service_locator"] == "API.security.permissions") $icon = "security";
+    $type = "comms/notifications/sidebar/" .  (isset($notification["message_hyperlink"]) && $notification["message_hyperlink"] != null ? "action" : "noAction");
+    $refID = $notification['reference_id'];
+    $out .=  $UI->addComponent($type,$age, [
+        "body" => urldecode($notification['message_body']),
+        "timeago" => \Moycroft\API\util\time\Time::timeago($conn->getData($conn->query("SELECT UNIX_TIMESTAMP(created_at) FROM comms_notifications_global_storage_general where reference_id = '$refID'"))[0]["UNIX_TIMESTAMP(created_at)"], ""),
+        "title" => urldecode($notification['message_title']),
+        "URL" => $notification['message_hyperlink'],
+        "actionName" => urldecode($notification['message_hyperlink_title']),
+        "subtitle" => urldecode($notification['message_subtitle']),
+        "icon" => $icon
+]);
+
+}
+if (sizeOf($notifications) == 0){$out = "<p class='center grey-text'> <i class='material-icons medium'>sentiment_very_satisfied</i> <br> You don't have any notifications</p>";}
+echo $out;
+?>

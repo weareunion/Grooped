@@ -1,0 +1,12 @@
+{!{
+##The following statements are comments
+##These are known as defaults
+##If an item is not required, you can type NULL and it will ignore it. Otherwise, the value after the : will be implemented. Spaces will be included.
+##Any items that are in the component that do not have a default or NULL set will halt the component from being created.
+
+*icon:NULL
+*mainContent:This is default main content
+}!}
+
+<p>{{mainContent}} {<{return "PHP Script can be run in these tags";}>}</p>
+

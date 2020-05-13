@@ -1,0 +1,45 @@
+{!{
+##Package: Core -> Modals
+##Description: This modal is for warning users. Provides callback function.
+*confirmButton:Continue
+*denyButton:Cancel
+*modalID:warningModal
+*color:orange
+*icon:error
+*pulse:pulse
+}!}
+<div id="{{modalID}}" class="modal white {{color}}-text text-darken-2" style="overflow-y: hidden !important;" moycroftcomponent="{{COMPONENTID}}" moycroftgenerated=true>
+    <div class="modal-content ">
+        <a class="right animated zoomIn btn-floating btn-large {{color}} {{pulse}} z-depth-0"><i class="material-icons">{{icon}}</i></a>
+        <br>
+        <h4 class="animated fadeInUp text-darken-1" style="font-weight: bold;animation-delay: 0s">{{title}}</h4>
+        <b></b>
+        <p class="grey-text animated fadeInUp" style="animation-delay: 0.2s">{{subtitle}}</p>
+    </div>
+    <div class="modal-footer grey lighten-4 animated fadeInUp" style="animation-delay: 0.3s">
+        <a onclick="generated_{{modalID}}_respond(false)" class="modal-close waves-effect  waves-lighten left grey-text text-darken-2 btn-flat animated fadeIn"
+           style="animation-delay: 0.5s">{{denyButton}}</a>
+
+        <a  onclick="generated_{{modalID}}_respond(true)"
+           class="modal-close waves-effect {{color}}-text waves-{{color}} btn-flat animated fadeIn" style="animation-delay: 0.6s">{{confirmButton}}</a>
+    </div>
+</div>
+
+<script>
+    let generated_{{LINK}}_accept = null;
+    let generated_{{LINK}}_deny = null;
+    function generated_{{modalID}}_trigger(accept,deny) {
+        M.AutoInit();
+        generated_{{LINK}}_accept = accept; 
+        generated_{{LINK}}_deny = deny;
+        M.Modal.getInstance(document.getElementById("{{modalID}}")).open();
+    }
+    function generated_{{modalID}}_respond(answer) {
+        if (answer){
+            generated_{{LINK}}_accept()
+        }else{
+        if (generated_{{LINK}}_deny != null){
+            generated_{{LINK}}_deny();
+        } 
+    }}
+</script>

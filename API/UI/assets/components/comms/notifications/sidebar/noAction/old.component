@@ -1,0 +1,34 @@
+{!{
+##The following statements are comments
+##These are known as defaults
+##If an item is not required, you can type NULL and it will ignore it. Otherwise, the value after the : will be implemented. Spaces will be included.
+##Any items that are in the component that do not have a default or NULL set will halt the component from being created.
+
+*icon:notifications
+*mainContent:This is default main content
+*subtitle: <br>
+}!}
+
+
+<li>
+    <div class="card-panel grey lighten-4 z-depth-0 animated fadeIn" style="line-height: 20px !important;">
+
+        <div class="grey-text row">
+
+            <div class="col s12"><label
+                    class="left valign-wrapper"><p style="margin: 0"> {{timeago}}</p></label>
+                <i class="right material-icons small grey-text text-darken-3">{{icon}}</i> <br>
+
+                <h6 class="left grey-text text-darken-3 valign-wrapper" style="font-weight: 500">{{title}} </h6>
+            </div>
+            <div class="container" style="width: 90% !important;">
+
+
+                <span class="grey-text text-darken-1">{{subtitle}}</span>
+                <br>{{body}}
+            </div>
+        </div>
+
+    </div>
+
+</li>

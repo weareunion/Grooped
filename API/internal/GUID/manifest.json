@@ -1,0 +1,11 @@
+
+{
+    "dependencies": [],
+    "service": "API.internal.GUID",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+			"functions\/generate.php": "function"
+		}
+	}
+}

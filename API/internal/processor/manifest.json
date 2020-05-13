@@ -1,0 +1,12 @@
+
+{
+    "dependencies": [],
+    "service": "API.internal.Chron",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+			"classes\/Chron.php": "class",
+		    "classes\/Processor.php": "class"
+		}
+	}
+}

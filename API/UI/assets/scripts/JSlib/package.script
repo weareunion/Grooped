@@ -1,0 +1,779 @@
+
+class Projects
+{
+    static exportAll(){
+
+        $.post("<? echo $UI->getSwitchBoard()?>", {
+                        requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken("API.projects", "export", true, 10);?>",
+                        service: "API.projects",
+                        action: "export",
+                        data:{
+                            action: "EXPORT"
+                        }
+                    })
+                         .done(function (data) {
+                             let arr = []
+                             let header = []
+                             let failed = 0
+
+                             data.split("|%%|").forEach(function (e) {
+                                 try {
+                                     let parsed = JSON.parse(e)
+                                     if(arr.length === 0){
+                                         for (let key in parsed) {
+                                             console.warn("KEY: " + key)
+                                             if (key === 'length' || !parsed.hasOwnProperty(key)) continue;
+                                             header.push(decodeURIComponent(parsed[key]).replace(/[^\w\s]/gi, ' '))
+                                         } arr.push(header)
+
+                                     }
+
+                                     let cleaned = []
+                                     for(let item in parsed){
+
+                                         if (item === 'length' || !parsed.hasOwnProperty(item)) continue;
+                                         // cleaned.push(decodeURIComponent(parsed[item]).split("+").join("_") );
+                                         cleaned.push(decodeURIComponent(parsed[item]).replace(/[^\w\s]/gi, ' '))
+                                     }
+                                     arr.push(cleaned)
+
+                                 }catch (err) {
+                                     console.warn(err)
+                                     failed++
+                                 }
+                             })
+                             if (failed !== 0) Moycroft.Notifications.toastNotification("" + failed + " of the entry(s) could not be converted.", "Partial data.", null, null, "error", null, 3)
+                            Moycroft.Helper.download("Project-Export-" + Date() + ".csv", Moycroft.Helper.arrayToCSV(arr))
+                        })
+                        .fail(function () {
+                            Moycroft.Notifications.toastNotification("The process has failed. Error code -44.", "Download failed.", null, null, "error", null, 3)
+                        });
+    }
+    static list(page){
+        // noinspection JSUnusedLocalSymbols
+        return new Promise(function(resolve, reject) {
+            if (page == null){
+                page = 0;
+            }
+
+
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.projects', 'list', true, 25);?>",
+                service: "API.projects",
+                action: "list",
+                data: {
+                    section: page
+                }
+            })
+                .done(function (data) {
+                    console.log(data);
+                    resolve(data);
+                })
+        });
+    }
+    static openProject(id){
+        //TODO: Implement project page
+        M.toast({
+            html: "This feature has not been implemented yet."
+        })
+    }
+}
+class Notifications {
+    static updatePermissionDisplay(){
+        let mark = 0;
+        let ID = "RESERVED.notification.preferences.";
+        this.getPermissions().then(function (data) {
+            let perm = data.split('');
+            perm.forEach(function (e) {
+                if (mark===3) {
+                    if (e==="0"){
+                        document.getElementById(ID+3+0).checked = false;
+                        $(document.getElementById("RESERVED.notification.preferences.expanded")).hide()
+                    }else{document.getElementById(ID+3+0).checked = true; $(document.getElementById("RESERVED.notification.preferences.expanded")).show()}
+                }else {
+                    document.getElementById(ID+mark+0).checked = false;
+                    document.getElementById(ID+mark+1).checked = false;
+                    document.getElementById(ID+mark+2).checked = false;
+                    document.getElementById(ID+mark+e).checked = true;
+                }
+
+
+                mark++;
+            })
+        })
+    }
+    static getNotifications(amount=0) {
+        this.updatePermissionDisplay()
+        if (amount === 0){
+            amount = this.notificationDisplayLength
+        }
+        let hasPanel = (document.getElementById("RESERVED.notification.panel") != null);
+        if (hasPanel) document.getElementById("RESERVED.notification.slideout.title").innerHTML = "Refreshing...";
+        $.post("<? echo $UI->getSwitchBoard()?>", {
+            requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.UI', 'generateNotificationBoxes', true, 10);?>",
+            service: "API.UI",
+            action: "generateNotificationBoxes",
+            data: {
+                amount:amount
+            }
+        })
+            .done(function (data) {
+                if (hasPanel) document.getElementById("RESERVED.notification.panel").innerHTML = (data);
+
+                $.post("<? echo $UI->getSwitchBoard()?>", {
+                    requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.comms.notifications', 'readall', true, 10);?>",
+                    service: "API.comms.notifications",
+                    action: "readall",
+                })
+                    .done(function () {
+                        if (hasPanel) document.getElementById("RESERVED.notification.button").innerHTML =('<i class="material-icons left">notifications_none</i>');
+                        if (hasPanel) document.getElementById("RESERVED.notification.slideout.label").innerHTML =(' all notifications have been read!');
+                        if (hasPanel) document.getElementById("RESERVED.notification.slideout.title").innerHTML = "Notifications";
+                    })
+            })
+
+            .fail(function () {
+                sidebar.html("There as a problem getting your notifications.");
+            });
+
+    }
+    static loadMoreNotifications(){
+        this.notificationDisplayLength += 10;
+        this.getNotifications();
+    }
+    static dismissNotification(notification){
+        notification.dismiss();
+    }
+    static dismissAll(){
+        M.Toast.dismissAll();
+    }
+    static getPermissions(){
+        return new Promise(function (resolve, reject) {
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.comms.notifications', 'getPermissions', true, 50);?>",
+                service: 'API.comms.notifications',
+                action: 'getPermissions'
+            })
+                .done(function (data) {
+                    resolve(data)
+
+                })
+                .fail(function () {
+                    reject()
+                });
+        })
+
+    }
+    static modifyPermissions(location,rank){
+        if (Moycroft.Notifications.disableUpdate){
+            Moycroft.Notifications.toastNotification("Please wait before the previous change has been sent to avoid data collisions. ", "Give us a second", null, null, "error")
+            return;
+        }
+        Moycroft.Notifications.disableUpdate = true;
+        let permissions = this.getPermissions();
+        this.updatePermissionDisplay()
+        let notification = Moycroft.Notifications.progressNotification("Changing Permissions");
+        let fail = function(){
+
+            setTimeout(function () {
+                Moycroft.Notifications.updatePermissionDisplay()
+                Moycroft.Notifications.disableUpdate = false;
+                Moycroft.Notifications.dismissNotification(notification)
+                Moycroft.Notifications.toastNotification("Your preferences could not be changed.", "Permissions Failed.", null, null, "security")
+            },300)
+        }
+        permissions.then(function(octal){
+            octal.replaceAt(location, rank);
+        $.post("<? echo $UI->getSwitchBoard()?>", {
+                        requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.comms.notifications', 'modifyPermissions', true, 50);?>",
+                        service: 'API.comms.notifications',
+                        action: 'modifyPermissions',
+                        data: {
+                            permissionsOctal: octal.replaceAt(location, rank)
+                        }
+                    })
+                        .done(function (data) {
+                            Moycroft.Notifications.updatePermissionDisplay()
+                            Moycroft.Notifications.disableUpdate = false;
+                            setTimeout(function () {
+                                Moycroft.Notifications.dismissNotification(notification)
+                                Moycroft.Notifications.toastNotification("Your preferences have been changed.", "Permissions Modified", null, null, "security")
+                            },300)
+
+                        })
+                        .fail(function () {
+                            fail()
+                        });
+        }).catch(function () {
+            fail()
+        })
+    }
+
+    static revokeConsent(){
+        Moycroft.Notifications.modifyPermissions(3, 0)
+    }
+    static giveConsent(){
+        Moycroft.Notifications.modifyPermissions(3, 1)
+    }
+    static progressNotification(title, subtitle="One Moment..."){
+        return M.toast({html: '<div class="row" style="margin-bottom: 0px !important; padding-bottom: 0px !important;"><div class="col s12"><h6>'+title+'</h6></div><div class="col s12"> <div class="progress transparent">\n' +
+                '      <div class="indeterminate white"></div>\n' +
+                '  </div><small>'+subtitle+'</small></div></div>', displayLength: 999999})
+    }
+    static nativeNotification(title, body="Click to open", link) {
+        Push.create(title, {
+            body: body,
+            timeout: 10000,
+            onClick: function () {
+                window.focus();
+                this.close();
+            },
+            link: link.URL,
+            onError: function () {
+                Instant.toastNotification(body, title, null, null, "notification", link)
+            }
+        });
+    }
+    static toastNotification(body, title="New Notification", subtitle = null, creator = null, icon="notifications", link = null, sound=1, displayLength=5, persistent = false){
+        title += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        let action = "";
+        if (link != null && link.title != null && (link.URL != null || link.action != null)){
+            if (link.URL != null){
+                link.action = "window.location='"+link.URL+"'";
+            }
+            action = '<button class="btn-flat toast-action animated fadeIn" style="animation-delay: .3s;" onclick="'+link.action+'">'+link.title+'</button>&nbsp;&nbsp;&nbsp;'
+        }
+        if (creator != null) title = title + " -  <span class='grey-text'>" + creator + "</span>";
+        let delay = (sound === 1) ? 850 : 0
+        let audio = [new Audio("<? echo $UI->getAssetBucket() . '/notifications/sounds/1.ogg' ?>"), new Audio("<? echo $UI->getAssetBucket() . '/notifications/sounds/2.ogg' ?>"), new Audio("<? echo $UI->getAssetBucket() . '/notifications/sounds/3.ogg' ?>"), new Audio("<? echo $UI->getAssetBucket() . '/notifications/sounds/4.ogg' ?>")]
+        if (sound !== 0){
+            audio[sound-1].play();
+        }
+        let scope = this;
+        let html = '  <i class=" material-icons animated bounceIn">'+icon+'</i>&nbsp&nbsp&nbsp&nbsp&nbsp <p><small class="animated fadeInLeft" style="font-weight:bold;animation-delay: .1s;">'+title+'</small><br><span class="animated fadeInLeft" style="animation-delay: .2s;">'+body+'</span><br></p><br><br>' + action;
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+               if (persistent){
+                   resolve(M.toast({html: html, displayLength: 999999}))
+               }else {
+                   resolve(M.toast({html: html}))
+               }
+            },delay)
+        })
+    }
+}
+
+    Notifications.notificationDisplayLength = 10;
+class Instant {
+    static disable(){
+        let instance = new Instant();
+        instance.kill();
+        return instance;
+    }
+    static enable(){
+        let instance = new Instant();
+        instance.init();
+        return instance;
+    }
+    setFrequency(frequency){
+        Moycroft.Instant.spacing = frequency;
+    }
+    init(){
+        if (isNaN(Moycroft.Instant.spacing)){
+            console.warn("Server load is high. Instant communications have been temporarily disabled.");
+            throw new Error("FRIENDLY: Moycroft has decided to temporarily disable instant communications such as popup notifications to provision resources in order to make your experience the best it can be. We apologize for this outage. || Server Load Too High");
+            return;
+        }
+        try {
+            console.log("Initializing Poll...");
+            console.warn("Setting interval check at "+Moycroft.Instant.spacing+"ms.");
+            Instant.interval = setInterval(this.poll, Moycroft.Instant.spacing);
+        }catch (e) {
+            console.log("Could not start poll.");
+        }
+        $(window).on("blur focus", function(e) {
+            let prevType = $(this).data("prevType");
+
+            if (prevType !== e.type) {   //  reduce double fire issues
+                switch (e.type) {
+                    case "blur":
+                        localStorage.setItem("GENERAL_WINDOW_FOCUSED", false);
+                        break;
+                    case "focus":
+                        localStorage.setItem("GENERAL_WINDOW_FOCUSED", true);
+                        break;
+                }
+            }
+
+            $(this).data("prevType", e.type);
+        })
+    }
+    kill(){
+        try {
+            clearInterval(Instant.interval);
+            Instant.interval = null;
+            console.log("Poll Stopped.");
+        }catch (e) {
+            console.log("Could not stop poll.");
+        }
+    }
+    poll(){
+        let scope = this;
+
+        $.post("<? echo $UI->getSwitchBoard()?>", {
+                        requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.socket', 'poll', false, 0);?>",
+                        service: "API.socket",
+                        action: "poll",
+                    })
+                        .done(function (data) {
+                            scope.errorMessageSent = false;
+                            console.log("Response: " + data);
+                            if(data !== "") Instant.process(data);
+                            if (Moycroft.Instant.shownToast){
+                                Moycroft.Instant.offlineToast.dismiss()
+                                Moycroft.Instant.shownToast = false;
+                                Moycroft.connected = true;
+                                Moycroft.Instant.offlineToast = Moycroft.Notifications.toastNotification("Functionality has been restored.", "Connection to Moycroft Servers Has been Established", null, null, "cloud_queue", null, 1)
+                            }
+
+
+
+                        })
+                        .fail(function (data) {
+                            if (!Moycroft.Instant.shownToast) {
+                                Moycroft.Instant.shownToast = true;
+                                Moycroft.connected = false;
+                                Moycroft.Instant.offlineToast = Moycroft.Notifications.toastNotification("Some functionality will be disabled until a connection can be established.", "Connection to Moycroft Servers Has been Lost", null, null, "cloud_off", null, 3, 900000, true).then(function (value) {
+                                    Moycroft.Instant.offlineToast = value
+                                })
+                            }
+                            console.log( data);
+                            if (!scope.errorMessageSent) {
+                                scope.errorMessageSent = true;
+                                console.error("Could not update current configuration.")
+                            }
+                        });
+    }
+    static process(socket){
+        socket = JSON.parse(socket)
+        console.log(socket)
+
+        //run through notifications
+        if (socket.notifications !== null) {
+            let notificationCount = 0;
+            socket.notifications.forEach(function (e) {
+                notificationCount++;
+                if (localStorage.getItem("GENERAL_WINDOW_FOCUSED")) {
+                    let icon = "notifications";
+                    if (e.serviceLocator === "API.security.permissions"){
+                        icon = "security"
+                    }
+                    Instant.toastNotification(e.content.body, e.content.title, e.content.subtitle, e.sender.name, icon, e.content.action, 1)
+                }else {
+                    Instant.nativeNotification(e.content.title, e.content.body, e.content.action)
+                }
+            })
+            if (document.getElementById("RESERVED.notification.button").innerHTML != null){
+                document.getElementById("RESERVED.notification.button").innerHTML =('<i class="material-icons left">notifications_active</i> ' + notificationCount);
+            }
+        }
+    }
+    static nativeNotification(title, body="Click to open", link) {
+        Moycroft.Notifications.nativeNotification(title, body, link);
+    }
+    static toastNotification(body, title="New Notification", subtitle = null, creator = null, icon="notifications", link = null, sound=1){
+        Moycroft.Notifications.toastNotification(body,title,subtitle,creator,icon,link,sound);
+    }
+}
+    Instant.spacing = parseInt("<? echo \Moycroft\API\performance\analytics\magic\Constants\MagicConstants::loadBalancer(100,1000, true, false, true, .6); ?>");
+    Instant.interval = function(){};
+    Instant.errorMessageSent = false;
+class Companies {
+    static list(page){
+        // noinspection JSUnusedLocalSymbols
+        return new Promise(function(resolve, reject) {
+            if (page == null){
+                page = 0;
+            }
+
+
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            // noinspection SyntaxError
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.accounts.Company', 'list', true, 25);?>",
+                service: "API.accounts.Company",
+                action: "list",
+                data: {
+                    section: page
+                }
+            })
+                .done(function (data) {
+                    resolve(data);
+                })
+        });
+    }
+}
+class Permissions {
+
+    static process(refID = null, decision) {
+        if (refID === null) {
+            refID = '<??>'
+        }
+        return new Promise(((resolve, reject) => {
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.security.permissions', 'respond', true, 10);?>",
+                service: "API.security.permissions",
+                action: "respond",
+                data: {
+                    refID: refID,
+                    response: decision
+                }
+            })
+                .done(function (data) {
+                    resolve()
+                })
+                .fail(function () {
+                    reject()
+                });
+        }))
+    }
+}
+class Timetables {
+
+
+    static init() {
+        Moycroft.Timetables.Reports.edit.resetState = Moycroft.Timetables.Reports.edit.currentEdit;
+    }
+}
+    Timetables.Reports = {
+    init: function () {
+        Moycroft.Timetables.Reports.edit.resetState = Moycroft.Timetables.Reports.edit.currentEdit;
+    },
+    delete: {
+        requestDeletion: function(id){
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.employee.timetables', 'delete', true, 10);?>",
+                service: "API.employee.timetables",
+                action: "delete",
+                data: {
+                    id:id
+                }
+            })
+                .done(function (data) {
+                    console.log(data);
+                    M.toast({html: "Preparing your request to delete this timesheet..."})
+                })
+                .fail(function () {
+                    M.toast({html: "We could not request your timesheet to be deleted."})
+                });
+        }
+    },
+    edit: {
+        currentEdit: {
+            ID: null,
+            Category: null,
+            Project: null,
+            Notes: null,
+            Removal: {
+                Category: false,
+                Project: false,
+                Notes: false,
+            }
+        },
+        resetState: null,
+        setCurrentEdit: function (ID, triggerPopUp = true) {
+            if (Moycroft.Timetables.Reports.edit.currentEdit.ID === undefined || ID !== Moycroft.Timetables.Reports.edit.currentEdit.ID){
+                Moycroft.Timetables.Reports.edit.clearEdits();
+            }
+            Moycroft.Timetables.Reports.edit.currentEdit.ID = ID;
+            if (triggerPopUp) Moycroft.UI.Modal.open('changeData');
+        },
+        autoSetCategory: function(ID){
+            Moycroft.Timetables.Reports.edit.setCategory($("#"+ID)[0].selectedOptions[0].value);
+        },
+        autoSetNotes: function(ID){
+            Moycroft.Timetables.Reports.edit.setNotes($("#"+ID)[0].value);
+        },
+        setCategory: function (category) {
+            Moycroft.Timetables.Reports.edit.currentEdit.Category = category;
+        },
+        setProject: function (ID) {
+            Moycroft.Timetables.Reports.edit.currentEdit.Project = ID;
+        },
+        setNotes: function (notes) {
+            Moycroft.Timetables.Reports.edit.currentEdit.Notes = notes;
+            if($("#editNotes")[0] !== undefined) $("#editNotes")[0].value = Moycroft.Timetables.Reports.edit.currentEdit.Notes
+            M.updateTextFields();
+        },
+        removeCategory: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Category = true;
+        },
+        removeProject: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Project = true;
+        },
+        removeNotes: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Notes = true;
+        },
+        cancelRemovalCategory: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Category = false;
+        },
+        cancelRemovalProject: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Project = false;
+        },
+        cancelRemovalNotes: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit.Removal.Notes = false;
+        },
+        clearEdits: function () {
+            Moycroft.Timetables.Reports.edit.currentEdit = Moycroft.Timetables.Reports.edit.resetState;
+        },
+        push: function () {
+            $.post("<? echo $UI->getSwitchBoard()?>", {
+                requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.employee.timetables', 'editReport', true, 10);?>",
+                service: "API.employee.timetables",
+                action: "editReport",
+                data: Moycroft.Timetables.Reports.edit.currentEdit
+            })
+                .done(function (data) {
+                    Moycroft.Timetables.Reports.edit.clearEdits();
+                    Moycroft.Notifications.toastNotification("The report has been updated. You can reload the page to see the changes.", "Successfully Updated", null, null, "check", {title: "Refresh", action: "window.location.reload()"})
+                })
+                .fail(function () {
+                    Moycroft.Notifications.toastNotification("The report could not be updated.", "Failed to Update", null, null, "error", {title: "Try Again", action: "Moycroft.Timetables.Reports.edit.push()"}, 3)
+                });
+        }
+    }
+}
+class Employees {
+    static get Timetables(){
+        return Timetables;
+    }
+
+}
+class Accounts {
+    static changeRank(ID, rank){
+        return new Promise(function (resolve, reject) {
+        $.post("<? echo $UI->getSwitchBoard()?>", {
+            requestToken: "<?php echo \Moycroft\API\security\antispam\requests\requestToken('API.accounts', 'changeRank', true, 10);?>",
+            service: "API.accounts",
+            action: "changeRank",
+            data: {
+                userID: ID,
+                toRank: rank
+            }
+        })
+            .done(function (data) {
+                resolve(data);
+            })
+            .fail(function (data) {
+                reject(data);
+            });
+    })
+    }
+}
+class UI {
+    static getGreeting() {
+        let interval = (new Date()).getHours();
+        return (interval < 12)? "Morning" : ((interval <= 18 && interval >= 12 ) ? "Afternoon" : "Evening")
+    }
+    static setGreeting(item){
+        item.innerHTML = this.getGreeting()
+    }
+}
+    UI.Modal = {
+    open: function (ID) {
+        M.Modal.getInstance(document.getElementById(ID)).open();
+    },
+    close: function (ID) {
+        M.Modal.getInstance(document.getElementById(ID)).close();
+    }
+};
+class Helper
+{
+    static setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    static getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    static arrayToCSV(array){
+        Moycroft.Notifications.toastNotification("Creating a CSV from your data.", "Preparing File", "One moment.", null, "grid_on");
+        var lineArray = [];
+        console.warn(array)
+        array.forEach(function (infoArray, index) {
+            let prgm = []
+            if (infoArray !== null) {
+                infoArray.forEach(function (e) {
+                    if (e === null || e == '') {
+                        prgm.push(" ")
+                    } else {
+                        prgm.push(e)
+                    }
+                })
+            }
+            var line = infoArray.join(",");
+            lineArray.push( line);
+        });
+        return lineArray.join("\n");
+    }
+    static download(filename, text, type="csve") {
+        Moycroft.Notifications.toastNotification("Transferring file...", "Downloading your File", "One moment.", null, "cloud_queue");
+        let element = document.createElement('a');
+        element.href = 'data:text/'+type+';charset=utf-8,\n' + encodeURI(text);
+        element.target = '_blank';
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+}
+class Moycroft {
+
+    constructor(){
+        this.projects = new Projects();
+    }
+    static consumerError(message){
+        message = message.toString();
+        if (message.includes("FRIENDLY: ")){
+            let title = "There was a problem";
+            let body = message.split("FRIENDLY: ")[1];
+            if(body.includes("||")){
+                title = body.split("||")[1];
+                body = body.split("||")[0];
+            }
+            Moycroft.Instant.toastNotification(body, title, "We apologize for any inconvenience", null, "warning");
+        }
+    }
+    static initPackage(bundle){
+        console.group(bundle.name);
+        let scope = this;
+        let runner = function (b, scope) {
+            console.log(b.execute);
+            try {
+               b.execute();
+            } catch (e) {
+                scope.consumerError(e);
+                console.error("Setting Up " + b.name + " failed: " + e);
+                return false;
+            }
+            return true;
+        };
+        let result = runner(bundle, this);
+        console.groupEnd();
+        return result;
+    }
+    static init(){
+        try {
+            this.runInit();
+        }catch (e) {
+            M.toast({html: "There is an unknown problem with this page. Some functionality may be diminished."})
+        }
+    }
+    static runInit(){
+        if (Moycroft.currentlyInitializing){
+            return;
+        }
+        let awaitExecution = true;
+        if (document.readyState === "uninitialized" || document.readyState === "loading"){
+            if (awaitExecution) console.warn("Waiting for document load to start autoload sequence...");
+            Moycroft.actuator = setInterval(function () {
+                if (!((document.readyState === "uninitialized" || document.readyState === "loading"))){
+                    Moycroft.init();
+                }
+            },50);
+            return;
+        }
+        Moycroft.currentlyInitializing = true;
+        Moycroft.actuator = function () {};
+        //disable logs
+        if("<? echo ($_SESSION['internal.API.dev.verbose'] || $_SESSION['user_account'] == 'a170a303-58a4-4a33-8f94-6e1893211dee') ? 'true' : 'false'; ?>" !== "true"){
+            console.log = function() {};
+            console.group = function() {};
+        }
+
+
+        let total = 0;
+        let failed = 0;
+        console.log("Setting up Frontend API...");
+
+        //Init Packages in List
+        let packages = [
+            {
+                name: "Moycroft.Instant",
+                execute: Moycroft.Instant.enable
+            },
+            {
+                name: "Moycroft.Timetables.Reports",
+                execute: Moycroft.Timetables.Reports.init
+            }
+        ];
+
+        packages.forEach(function (e) {
+            total++;
+            failed += (Moycroft.initPackage(e) ? 0 : 1);
+        }) ;
+
+         if (failed !== 0){
+             console.warn("Init has concluded with an error. " + (total-failed) + "/" + (total) + " (" + Math.floor(((total-failed)/total)*100) + "%) packages have been autoloaded." )
+         }else{
+             console.log("Moycroft has set up " + total + " packages successfully.")
+         }
+         if (!(navigator.userAgent.indexOf("Chrome") !== -1) && Moycroft.Helper.getCookie("Moycroft.Front.API.cookie.init.unsupportedBrowserWarning") === null){
+             Moycroft.Notifications.toastNotification("Some functions may not work as intended. Please use the newest version of Google Chrome for the best experience.", "This Browser doesn't fully support Moycroft",null, null, "warning", {title:"I Understand", action: "M.Toast.dismissAll();Moycroft.Helper.setCookie('Moycroft.Front.API.cookie.init.unsupportedBrowserWarning', true, 2)"}, 0, 900000, true)
+         }
+    }
+
+}
+    Moycroft.Projects = Projects;
+    Moycroft.Companies = Companies;
+    Moycroft.Instant = Instant;
+    Moycroft.UI = UI;
+    Moycroft.Permissions = Permissions;
+    Moycroft.Timetables = Timetables;
+    Moycroft.Notifications = Notifications;
+    Moycroft.Employees = Employees;
+    Moycroft.Accounts = Accounts;
+    Moycroft.Helper = Helper;
+    Moycroft.actuator = function(){};
+    Moycroft.initialized = false;
+    Moycroft.currentlyInitializing = false;
+    Moycroft.Notifications.disableUpdate = false;
+    Moycroft.connected = true;
+    Moycroft.Instant.shownToast = false;
+    Moycroft.Instant.offlineToast = null;
+
+
+//PROTOTYPES
+String.prototype.replaceAt=function(index, replacement) {
+    replacement = "" + replacement;
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}

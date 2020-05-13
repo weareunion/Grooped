@@ -1,0 +1,47 @@
+[04-Jun-2019 16:59:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:02:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:04:20 UTC] PHP Warning:  include_once(../../../classes/Maintenance.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:04:20 UTC] PHP Warning:  include_once(): Failed opening '../../../classes/Maintenance.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:04:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Moycroft\API\internal\maintenance\Maintenance' not found in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:05:03 UTC] PHP Warning:  include_once(../../../classes/Maintenance.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:05:03 UTC] PHP Warning:  include_once(): Failed opening '../../../classes/Maintenance.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:05:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Moycroft\API\internal\maintenance\Maintenance' not found in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:07:54 UTC] PHP Warning:  include_once(../../../classes/Maintenance.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:07:54 UTC] PHP Warning:  include_once(): Failed opening '../../../classes/Maintenance.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:07:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Moycroft\API\internal\maintenance\Maintenance' not found in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:09:16 UTC] PHP Warning:  include_once(../../../classes/Maintenance.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:09:16 UTC] PHP Warning:  include_once(): Failed opening '../../../classes/Maintenance.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:09:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Moycroft\API\internal\maintenance\Maintenance' not found in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:09:23 UTC] PHP Warning:  include_once(../../../../classes/Maintenance.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:09:23 UTC] PHP Warning:  include_once(): Failed opening '../../../../classes/Maintenance.php' for inclusion (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:09:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Moycroft\API\internal\maintenance\Maintenance' not found in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 4
+[04-Jun-2019 17:10:38 UTC] PHP Warning:  require_once(../../../../../config.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:10:38 UTC] PHP Fatal error:  require_once(): Failed opening required '../../../../../config.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:11:11 UTC] PHP Warning:  require_once(/home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php../../../../../config.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:11:11 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php../../../../../config.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php on line 2
+[04-Jun-2019 17:12:46 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/classes/Maintenance.php:8
+Stack trace:
+#0 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php(2): require_once()
+#1 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/classes/Maintenance.php on line 8

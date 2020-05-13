@@ -1,0 +1,117 @@
+<ul id="RESERVED.notification.slideout" class="sidenav">
+    <li><a class="waves-effect waves-light btn-flat hoverable grey-text text-darken-2 modal-trigger" href="#RESERVED.notifications.preferences.modal"><i class="material-icons left ">settings</i>Preferences</a></li>
+
+
+    <li><div class="user-view">
+        <i class="material-icons medium bounceIn" {<{ return $UI->getAnimationDelay(); }>} >notifications</i>
+        <a ><span class="black-text  fadeInUp" {<{ return $UI->getAnimationDelay("font-weight: bold;"); }>} ><h5  id="RESERVED.notification.slideout.title">Notifications</h5></span></a>
+        <a ><span class=" email grey-text  fadeInUp" {<{ return $UI->getAnimationDelay(); }>} > {<{ $accounts = new \Moycroft\API\accounts\Account\Account(); return $accounts->getFirstName();}>}, <span id="RESERVED.notification.slideout.label">you have 3 new notifications!</span></span></a>
+
+
+
+    </div>
+
+    </li>
+    <span id="RESERVED.notification.panel">
+        <li>
+            <div class="progress transparent">
+                <div class="indeterminate black"></div>
+            </div>
+        </li>
+    </span>
+
+
+
+</ul>
+<div id="RESERVED.notifications.preferences.modal" class="modal  blue-grey darken-2">
+    <div class="modal-content  blue-grey darken-2">
+
+        <i class="material-icons medium white-text text-lighten-1 right animated fadeInUp">chat</i>
+
+        <h4 class="left white-text animated fadeInUp" style="font-weight: bolder">Notifications Preferences</h4><br><br>
+        <br>
+        <h6 style="font-weight: bold" class="white-text animated fadeInUp">Notification Consent</h6>
+        <p  class="grey-text text-lighten-3 animated fadeInUp" >You can give or withdraw consent at any time by toggling the switch below, disabling the notification stream.</p>
+        <div class="switch animated fadeInUp">
+            <label id="white-text">
+                <input type="checkbox" id="RESERVED.notification.preferences.30"
+                       onclick="if (this.checked){
+
+                    Moycroft.Notifications.giveConsent();
+                }else {Moycroft.Notifications.revokeConsent();}"
+                >
+                <span class="lever"></span>
+                <span class="white-text">I Consent</span>
+            </label>
+        </div>
+        <br>
+        <div id="RESERVED.notification.preferences.expanded">
+        <h6 style="font-weight: bold" class="white-text animated fadeInUp">Phone </h6>
+        <p  class="grey-text text-lighten-3 animated fadeInUp" >Your messages will be delivered to your phone number on file.</p>
+        <form action="#">
+            <p class="white-text animated fadeInUp">
+                <label>
+                    <input class="with-gap" onclick="Moycroft.Notifications.modifyPermissions(0,2)" name="group3" type="radio" id="RESERVED.notification.preferences.02"  />
+                    <span class="white-text">Allow</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input class="with-gap" onclick="Moycroft.Notifications.modifyPermissions(0,1)" name="group3" type="radio" id="RESERVED.notification.preferences.01"  />
+                    <span class="white-text">Reduced</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input class="with-gap" onclick="Moycroft.Notifications.modifyPermissions(0,0)" name="group3" type="radio" id="RESERVED.notification.preferences.00"  />
+                    <span class="white-text">Disabled</span>
+                </label>
+            </p>
+        </form>
+        <br>
+        <h6 style="font-weight: bold" class="white-text animated fadeInUp">E-Mail </h6>
+        <p  class="grey-text text-lighten-3 animated fadeInUp" >Your messages will be delivered to your E-Mail on file.</p>
+        <form action="#">
+            <p class="white-text animated fadeInUp">
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(1,2)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.12"   />
+                    <span class="white-text animated fadeInUp">Allow</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(1,1)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.11"  />
+                    <span class="white-text animated fadeInUp">Reduced</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(1,0)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.10"  />
+                    <span class="white-text animated fadeInUp">Disabled</span>
+                </label>
+            </p>
+        </form>
+        <br>
+        <h6 style="font-weight: bold" class="white-text animated fadeInUp">Desktop </h6>
+        <p  class="grey-text text-lighten-3 animated fadeInUp" >These notifications will show on your desktop. Keep in mind that these permissions will not be honored in some circumstances in accordance to our <a>privacy policy</a>.</p>
+        <form action="#">
+            <p class="white-text animated fadeInUp">
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(2,2)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.22"  />
+                    <span class="white-text animated fadeInUp">Allow</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(2,1)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.21"  />
+                    <span class="white-text animated fadeInUp">Reduced</span>
+                </label>
+                &nbsp&nbsp&nbsp
+                <label>
+                    <input onclick="Moycroft.Notifications.modifyPermissions(2,0)" class="with-gap" name="group3" type="radio" id="RESERVED.notification.preferences.20"  />
+                    <span class="white-text animated fadeInUp">Disabled</span>
+                </label>
+            </p>
+        </form>
+        </div>
+
+    </div>
+    <div class="modal-footer blue-grey darken-3 animated fadeInUp">
+        <a href="#!" class="modal-close waves-effect waves-lighten btn-flat white-text animated fadeIn">Close</a>
+    </div>
+</div>

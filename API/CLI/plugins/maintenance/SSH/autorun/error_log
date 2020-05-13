@@ -1,0 +1,40 @@
+[04-Jun-2019 17:24:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function Moycroft\API\helper\IMPORT() in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php:3
+Stack trace:
+#0 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/classes/Maintenance.php(27): require_once()
+#1 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php(6): Moycroft\API\internal\maintenance\Maintenance->run()
+#2 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 3
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  Use of undefined constant DB_HOST - assumed 'DB_HOST' (this will throw an Error in a future version of PHP) in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 27
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  Use of undefined constant DB_USER - assumed 'DB_USER' (this will throw an Error in a future version of PHP) in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 27
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  Use of undefined constant DB_PASS - assumed 'DB_PASS' (this will throw an Error in a future version of PHP) in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 27
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  mysqli_connect(): php_network_getaddresses: getaddrinfo failed: Name or service not known in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 27
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  mysqli_connect(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Name or service not known in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 27
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 50
+[04-Jun-2019 17:24:35 UTC] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, bool given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 56
+[04-Jun-2019 17:24:35 UTC] PHP Fatal error:  Uncaught Error: Error: DELETE FROM `core_GUID` WHERE `core_GUID`.`temporary` = 1<br> in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php:76
+Stack trace:
+#0 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php(56): Moycroft\API\internal\mysql\Connect->__crash('Error: DELETE F...')
+#1 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php(17): Moycroft\API\internal\mysql\Connect->query('DELETE FROM `co...')
+#2 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/classes/Maintenance.php(27): require_once('/home/washmelc/...')
+#3 /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/SSH/autorun/helpers/run.php(6): Moycroft\API\internal\maintenance\Maintenance->run()
+#4 {main}
+  thrown in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 76
+[04-Jun-2019 17:27:11 UTC] PHP Warning:  require_once(/home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes../auth/auth.php): failed to open stream: No such file or directory in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 15
+[04-Jun-2019 17:27:11 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes../auth/auth.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/mysql/classes/connect.php on line 15
+[04-Jun-2019 17:29:04 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:29:48 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:31:22 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:31:47 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:32:48 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:33:28 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:33:52 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:35:36 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:38:05 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:38:53 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:43:11 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:43:43 UTC] PHP Warning:  sizeof(): Parameter must be an array or an object that implements Countable in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 44
+[04-Jun-2019 17:52:57 UTC] PHP Warning:  date() expects at least 1 parameter, 0 given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 73
+[04-Jun-2019 17:52:57 UTC] PHP Warning:  fopen() expects at least 2 parameters, 1 given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 73
+[04-Jun-2019 17:52:57 UTC] PHP Warning:  fwrite() expects parameter 1 to be resource, bool given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 74
+[04-Jun-2019 17:52:57 UTC] PHP Warning:  fclose() expects parameter 1 to be resource, bool given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 75
+[04-Jun-2019 17:55:38 UTC] PHP Warning:  date() expects at least 1 parameter, 0 given in /home/washmelc/public_html/union/user/login/auth/lgn/dev/API/internal/maintenance/scripts/cleanup/databases.php on line 73

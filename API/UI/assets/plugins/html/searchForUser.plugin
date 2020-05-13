@@ -1,0 +1,36 @@
+   <div id="generated_searchForUser" class="modal modal-fixed-footer white black-text text-darken-2" style="overflow-y: hidden !important;">
+        <div class="modal-content ">
+            <i class="right grey-text small material-icons">search</i></a>
+            <br>
+            <h4 class="animated fadeInUp text-darken-1" style="font-weight: bold;animation-delay: 0s">Search For a Person</h4>
+            <b></b>
+            <p class="grey-text animated fadeInUp" style="animation-delay: 0.2s">You can search almost any detail, such as phone number, email address, company and user ID.</p>
+            <nav>
+                <div class="nav-wrapper z-depth-0">
+                    <form id="generated_searchForUser_formWrapper">
+                        <div id="generated_searchForUser_INPUT" class="input-field grey lighten-3 z-depth-0">
+                            <input id="generated_searchForUser_INPUT_BOX" type="search" required>
+                            <label class="label-icon" for="generated_searchForUser_INPUT_BOX"><i class="grey-text material-icons">account_circle</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+            <div class="progress transparent" id="generated_searchForUser_progress">
+                <div class="indeterminate green accent-3"></div>
+            </div>
+            <span >
+                <ul class="collection" id="generated_searchForUser_results">
+
+
+            </ul>
+            </span>
+        </div>
+        <div class="modal-footer grey lighten-4 animated fadeInUp" style="animation-delay: 0.3s">
+            <a class="waves-effect modal-close waves-lighten left grey-text text-darken-2 btn-flat animated fadeIn"
+               style="animation-delay: 0.5s">Cancel</a>
+            <a onclick="generated_searchForUser_conclude(null,null,true)" class="waves-effect modal-close waves-lighten right green-text text-accent-3 btn-flat animated fadeIn"
+               style="animation-delay: 0.5s">Finish<i class="material-icons right">arrow_forward</i></a>
+
+        </div>
+    </div>

@@ -1,0 +1,11 @@
+
+{
+    "dependencies": [],
+    "service": "API.grooped.httptunnel",
+    "required_imports": true,
+	"imports": {
+   	   "_required": {
+		   "classes\/Tunnel.php": "tunnel"
+		}
+	}
+}
